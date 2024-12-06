@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Products</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="icon" href="{% static 'images/fav_icon.png' %}" type="image/x-icon">
+
+
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Add Product</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="image" class="form-label">Product Image</label>
+                <input type="file" id="image" name="image" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="alt_text" class="form-label">Alt Text</label>
+                <input type="text" id="alt_text" name="alt_text" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Product</button>
+        </form>
+    
+        <!-- Table Section -->
+        <div class="mt-5">
+            <h3>Product Showcase</h3>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Image</th>
+                        <th>Alt Text</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td><img src="{{ product.image.url }}" alt="{{ product.alt_text }}" width="100"></td>
+                        <td>{{ product.alt_text }}</td>
+                        <td>
+                            <a href="{% url 'edit_product' product.id %}" class="btn btn-warning btn-sm">Edit</a>
+                            <form method="POST" action="{% url 'delete_product' product.id %}" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+</body>
+</html>

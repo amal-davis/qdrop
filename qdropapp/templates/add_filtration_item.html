@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add filtration</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="icon" href="{% static 'images/fav_icon.png' %}" type="image/x-icon">
+
+
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Add Filtration Item</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" id="title" name="title" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea id="description" name="description" rows="3" class="form-control"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">Image</label>
+                <input type="file" id="image" name="image" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="button_text" class="form-label">Button Text</label>
+                <input type="text" id="button_text" name="button_text" class="form-control" value="Download Catalog">
+            </div>
+            <div class="mb-3">
+                <label for="button_link" class="form-label">Button Link</label>
+                <input type="url" id="button_link" name="button_link" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Add Item</button>
+        </form>
+    
+        <!-- Table Section -->
+        <div class="mt-5">
+            <h3>Filtration Items List</h3>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Image</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.description }}</td>
+                        <td>
+                            <img src="{{ item.image.url }}" alt="{{ item.title }}" width="100">
+                        </td>
+                        <td>
+                            <a href="{% url 'edit_filtration_item' item.id %}" class="btn btn-warning btn-sm">Edit</a>
+                            <form method="POST" action="{% url 'delete_filtration_item' item.id %}" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <title>Add About Section</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="icon" href="{% static 'images/fav_icon.png' %}" type="image/x-icon">
+
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Add About Section</h1>
+        <!-- Add Form -->
+        <form method="POST" enctype="multipart/form-data" class="mb-5">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="heading" class="form-label">Main Heading:</label>
+                <textarea id="heading" name="heading" rows="2" class="form-control" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="highlight_text" class="form-label">Highlight Text:</label>
+                <input type="text" id="highlight_text" name="highlight_text" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="subheading" class="form-label">Subheading:</label>
+                <textarea id="subheading" name="subheading" rows="3" class="form-control" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="safe_water_solutions" class="form-label">Safe Water Solutions:</label>
+                <input type="text" id="safe_water_solutions" name="safe_water_solutions" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="customer_support" class="form-label">Customer Support:</label>
+                <input type="text" id="customer_support" name="customer_support" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="after_service_guarantee" class="form-label">After Service Guarantee:</label>
+                <input type="text" id="after_service_guarantee" name="after_service_guarantee" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">Right Section Image:</label>
+                <input type="file" id="image" name="image" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Add Section</button>
+        </form>
+
+        <!-- Table for Displaying Added Content -->
+        <h2 class="mb-4">Added Sections</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Heading</th>
+                    <th>Highlight Text</th>
+                    <th>Subheading</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for section in about_sections %}
+                    <tr>
+                        <td>{{ section.id }}</td>
+                        <td>{{ section.heading }}</td>
+                        <td>{{ section.highlight_text }}</td>
+                        <td>{{ section.subheading }}</td>
+                        <td>
+                            {% if section.image %}
+                                <img src="{{ section.image.url }}" alt="Image" width="100">
+                            {% else %}
+                                No Image
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'edit_about_section' section.id %}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{% url 'delete_about_section' section.id %}" class="btn btn-danger btn-sm"
+                               onclick="return confirm('Are you sure?');">Delete</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">No sections added yet.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

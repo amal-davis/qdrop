@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit About Section</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="icon" href="{% static 'images/fav_icon.png' %}" type="image/x-icon">
+
+
+</head>
+<body>
+    <div class="container mt-5">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="heading" class="form-label">Main Heading:</label>
+                <textarea id="heading" name="heading" rows="2" class="form-control">{{ section.heading }}</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="highlight_text" class="form-label">Highlight Text:</label>
+                <input type="text" id="highlight_text" name="highlight_text" class="form-control" value="{{ section.highlight_text }}">
+            </div>
+            <div class="mb-3">
+                <label for="subheading" class="form-label">Subheading:</label>
+                <textarea id="subheading" name="subheading" rows="3" class="form-control">{{ section.subheading }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="safe_water_solutions" class="form-label">Safe Water Solutions:</label>
+                <input type="text" id="safe_water_solutions" value="{{ section.safe_water_solutions }}" name="safe_water_solutions" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="customer_support" class="form-label">Customer Support:</label>
+                <input type="text" id="customer_support" value="{{ section.customer_support }}" name="customer_support" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="after_service_guarantee" class="form-label">After Service Guarantee:</label>
+                <input type="text" id="after_service_guarantee" value="{{ section.after_service_guarantee }}" name="after_service_guarantee" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">Update Image:</label>
+                <input type="file" id="image" name="image" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+        
+    </div>
+</body>
+</html>

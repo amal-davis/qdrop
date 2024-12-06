@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qdrops</title>
+    <link rel="icon" href="{% static 'images/fav_icon.png' %}" type="image/x-icon">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+
+</head>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+}
+body{
+    overflow-x: hidden;
+
+}
+.reveal-left,
+.reveal-right {
+    overflow: visible; /* Ensure visibility */
+}
+@media (max-width: 768px) {
+    .reveal-left,
+    .reveal-right {
+        transform: none !important; /* Reset animations */
+        opacity: 1 !important; /* Ensure visibility */
+        transition: none !important; /* Disable transitions */
+    }
+}
+@media (max-width: 768px) {
+    body {
+        animation: none !important;
+    }
+}
+
+
+/* Hidden State */
+
+
+</style>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#gallery">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#products">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#process">Process</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+    <section class="custom-section py-5" id="home">
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- Left Column -->
+                <div class="col-md-6 pt-5 text-center text-md-start reveal-left">
+                    <div class="logo mt-5">
+                        <img src="{{ content.logo.url }}" alt="Qdrop Logo" class="img-fluid">
+                    </div>
+                    <h1 class="section-heading">{{ content.heading }}</h1>
+                    <p class="subheading mt-3">{{ content.subheading }}</p>
+                    <div class="container text-center mt-5">
+                        <div class="button-container">
+                            <a href="{{ content.request_quote_url }}" class="cta-button">Request a Quote</a>
+                            <a href="{{ content.whatsapp_url }}" style="text-decoration: none;" target="_blank" class="whatsapp-btn">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Right Column -->
+                <div class="col-md-6 pt-5 image-section position-relative reveal-right">
+                    <img src="{{ content.image.url }}" alt="Water Purifier" class="img-fluid mt-5">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+
+
+    <section class="about-section py-5" id="about">
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- Left Text Section -->
+                <div class="col-lg-6 reveal-left">
+                    {% if about_section %}
+                        <h1 class="about-heading">
+                            Over <span style="font-weight: bold; color: #003366;">{{ about_section.highlight_text }}</span> of Water Sources in Kerala Fail Safety Standards
+                        </h1>
+                        <p class="about-highlight">{{ about_section.subheading }}</p>
+                        <p class="about-description">{{ about_section.heading }}</p>
+                        <div class="about-box mt-4">
+                            <div class="about-box-item">
+                                <h3>{{ about_section.safe_water_solutions }}</h3>
+                                <p>Safe Water Solutions</p>
+                            </div>
+                            <div class="about-box-item">
+                                <h3>{{ about_section.customer_support }}</h3>
+                                <p>Customer Support</p>
+                            </div>
+                            <div class="about-box-item">
+                                <h3>{{ about_section.after_service_guarantee }}</h3>
+                                <p>After-Service Guarantee</p>
+                            </div>
+                        </div>
+                    {% else %}
+                        <p>No content available.</p>
+                    {% endif %}
+                </div>
+    
+                <!-- Right Image Section -->
+                <div class="col-lg-6 text-center about-image reveal-right">
+                    {% if about_section and about_section.image %}
+                        <img src="{{ about_section.image.url }}" alt="Water Solutions" class="img-fluid">
+                    {% else %}
+                        <img src="https://via.placeholder.com/500" alt="Placeholder Image" class="img-fluid">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+
+    <section class="expertise-section py-5" id="services">
+        <div class="container">
+            <!-- Main Heading -->
+            <h2 class="expertise-heading">Our Expertise</h2>
+            <p class="expertise-subheading">From iron removal to softening, Qdrop makes purity personal.<br>Water you can trust, crafted for your needs.</p>
+    
+            <!-- Card Row -->
+            <div class="row g-4">
+                {% for expertise in expertise_list %}
+                <div class="col-md-3 col-sm-6 bottom">
+                    <div class="card expert-card">
+                        <img src="{{ expertise.image.url }}" alt="{{ expertise.title }}" class="card-img-top">
+                        <div class="card-body expert-card-body">
+                            <h5 class="expert-card-title">{{ expertise.title }}</h5>
+                            <p class="expert-card-content">
+                                <ul>
+                                    {% if expertise.description_1 %}<li>{{ expertise.description_1 }}</li>{% endif %}
+                                    {% if expertise.description_2 %}<li>{{ expertise.description_2 }}</li>{% endif %}
+                                    {% if expertise.description_3 %}<li>{{ expertise.description_3 }}</li>{% endif %}
+                                </ul>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    
+    <section class="water-section py-5">
+        <div class="container">
+            <!-- Heading -->
+            <div>
+                <h2 class="water-heading">Our Residential <br> <span style="color: #FF4E8A;">Water Treatment</span> <br> Solutions</h2>
+            </div>
+    
+            <!-- Subheading -->
+            <div class="mt-3">
+                <span class="water-subheading">Purifiers</span>
+            </div>
+    
+            <!-- Row for Grid -->
+            <div class="row align-items-center mt-5">
+                <!-- UV Water Purifier -->
+                <div class="col-lg-3 col-md-6 text-center text-lg-start bottom">
+                    <h3 class="grid-heading">{{ water_solution.uv_heading }}</h3>
+                    <p class="grid-text">{{ water_solution.uv_description }}</p>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center bottom">
+                    <img src="{{ water_solution.uv_image.url }}" alt="UV Water Purifier" class="water-image">
+                </div>
+    
+                <!-- RO Water Purifier -->
+                <div class="col-lg-3 col-md-6 text-center text-lg-start bottom">
+                    <h3 class="grid-heading">{{ water_solution.ro_heading }}</h3>
+                    <p class="grid-text">{{ water_solution.ro_description }}</p>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center bottom">
+                    <a href="{{ water_solution.button_link }}" class="download-btn">{{ water_solution.button_text }}</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="filtration-section mt-5 py-5">
+        <div class="container">
+            <!-- Subheading -->
+            <div class="">
+                <span class="subheading">Whole house filtration</span>
+            </div>
+    
+            <!-- Row for Items -->
+            <div class="row text-center text-lg-start align-items-stretch">
+                {% for item in filtration_items %}
+                <div class="col-lg-3 col-md-6 mb-4 bottom">
+                    {% if item.image %}
+                    <img src="{{ item.image.url }}" alt="{{ item.title }}" class="item-image">
+                    {% else %}
+                    <span>No Image</span>
+                    {% endif %}
+                    <h3 class="item-title">{{ item.title }}</h3>
+                    <p class="item-text">{{ item.description }}</p>
+                </div>
+                {% endfor %}
+            </div>
+    
+            <!-- Bottom Section -->
+            <div class="row mt-4 align-items-center">
+                <div class="col-lg-9 col-md-12">
+                    <p class="bottom-text text-center text-lg-start">
+                        Trusted. Efficient. Premium. Qdrop delivers water treatment solutions that are meticulously crafted and fully supported every step of the way.
+                    </p>
+                </div>
+                <div class="col-lg-3 col-md-12 text-center text-lg-end">
+                    <a href="#" class="download-btn">Download Catalog</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+
+
+    <section class="testimonial-section mt-5 py-5" id="testimonials">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="testimonial-heading">What Our Clients Say</h2>
+            </div>
+            <div class="row text-center mt-5">
+                {% for testimonial in testimonials %}
+                <div class="col-lg-3 col-md-6 mb-4 bottom">
+                    <div class="testimonial-card">
+                        <img src="{{ testimonial.client_image.url }}" alt="{{ testimonial.client_name }}" class="testimonial-image">
+                        <h5 class="testimonial-title">{{ testimonial.title }}</h5>
+                        <p class="testimonial-text">{{ testimonial.message }}</p>
+                        <div class="stars">
+                            {{ testimonial.full_stars }}{{ testimonial.empty_stars }}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    
+    
+
+
+
+    <section class="gallery-section py-5" id="gallery">
+        <div class="container">
+            <!-- Gallery Heading -->
+            <div class="row mb-5">
+                <div class="col-md-6">
+                    <h2 class="gallery-heading">Our <span class="gallery-subheading">Works</span></h2>
+                </div>
+                <div class="col-md-6 text-end">
+                    <span class="gallery-arrow">&#8595;</span>
+                </div>
+            </div>
+    
+            <!-- Gallery Grid -->
+            <div class="row gallery-grid g-3">
+                {% for gallery_image in gallery_images %}
+                <div class="col-lg-3 col-md-4 col-sm-6 grid-item">
+                    <a href="{{ gallery_image.image.url }}" data-fancybox="gallery" data-caption="{{ gallery_image.alt_text }}">
+                        <img src="{{ gallery_image.image.url }}" alt="{{ gallery_image.alt_text }}" class="img-fluid">
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    
+
+    
+
+    <section class="contact-section py-5" id="contact">
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- Left Text Section -->
+                <div class="col-md-6 form-text-section reveal-left">
+                    <h2>Get Your Quote –<br> Fast, Easy, and Customized!</h2>
+                    <p>
+                        Let us provide you with a tailored solution that ensures clean and safe water for you. 
+                        Fill out the form below to receive your customized quote!
+                    </p>
+                </div>
+    
+                <!-- Right Form Section -->
+                <div class="col-md-6 reveal-right circle ">
+                    <div class="form-container">
+                        <form method="POST" action="{% url 'contact' %}">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="name" class="form-label">1. Name</label>
+                                <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">2. Email</label>
+                                <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">3. Phone number</label>
+                                <input type="text" id="phone" name="phone" class="form-control" placeholder="Enter your phone number" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">4. Write a message</label>
+                                <textarea id="message" name="message" rows="4" class="form-control" placeholder="Enter your message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+
+      <section class="py-5" id="products">
+        <div class="container">
+            <!-- Section Heading -->
+            <h2 class="showcase-heading">Products Showcase</h2>
+    
+            <!-- Product Images Grid -->
+            <div class="row g-4">
+                {% for product in products %}
+                <div class="col-6 col-md-3 bottom">
+                    <img src="{{ product.image.url }}" alt="{{ product.alt_text }}" class="product-image img-fluid">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    
+
+    <section class="py-5" id="process">
+        <div class="container">
+            <h2 class="process-heading">Our Water Treatment Process</h2>
+            <div class="row text-center">
+                <!-- Step 1 -->
+                <div class="col-md-3 process-container reveal-left">
+                    <div class="process-step">
+                        <div class="process-icon bg-step-1">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h5 class="fw-bold">1. {{ steps.0.heading }}</h5>
+                        <ul class="process-list">
+                            {% for point in steps.0.get_points_as_list %}
+                            <li>{{ point }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="col-md-3 process-container reveal-left">
+                    <div class="process-step">
+                        <div class="process-icon bg-step-2">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h5 class="fw-bold">2. {{ steps.1.heading }}</h5>
+                        <ul class="process-list">
+                            {% for point in steps.1.get_points_as_list %}
+                            <li>{{ point }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="col-md-3 process-container reveal-right">
+                    <div class="process-step">
+                        <div class="process-icon bg-step-3">
+                            <i class="fas fa-vial"></i>
+                        </div>
+                        <h5 class="fw-bold">3. {{ steps.2.heading }}</h5>
+                        <ul class="process-list">
+                            {% for point in steps.2.get_points_as_list %}
+                            <li>{{ point }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <!-- Step 4 -->
+                <div class="col-md-3 process-container reveal-right">
+                    <div class="process-step">
+                        <div class="process-icon bg-step-4">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h5 class="fw-bold">4. {{ steps.3.heading }}</h5>
+                        <ul class="process-list">
+                            {% for point in steps.3.get_points_as_list %}
+                            <li>{{ point }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="map-section py-5" id="map">
+        <div class="container">
+            <h2 class="text-center mb-4">Our Locations</h2>
+            <div class="row">
+                <!-- First Location -->
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <div class="location-card">
+                        <h4 class="location-title">Kothamangalam</h4>
+                        <p>City Tower, Nellikuzi P O, Kothamangalam</p>
+                        <div class="map-container">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15724.606892877744!2d77.1602986!3d9.8376217!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b07a7b732b9faaf%3A0xa078174a833aa3c0!2sQ%20drop%20Water%20Solutions!5e0!3m2!1sen!2sin!4v1733458862542!5m2!1sen!2sin" 
+                                width="100%" 
+                                height="300" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Second Location -->
+                <div class="col-lg-6 col-md-12 mb-4">
+                    <div class="location-card">
+                        <h4 class="location-title">Nedumkandam</h4>
+                        <p>Opposite Panchayath Office Road, Thekkady, Munnar, Nedumkandam, Kerala 685553</p>
+                        <div class="map-container">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15724.606892877744!2d77.1602986!3d9.8376217!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b07a7b732b9faaf%3A0xa078174a833aa3c0!2sQ%20drop%20Water%20Solutions!5e0!3m2!1sen!2sin!4v1733458862542!5m2!1sen!2sin" 
+                                width="100%" 
+                                height="300" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+      <section class="contact-container py-5">
+        <div class="container">
+          <div class="row align-items-center">
+            <!-- Left Section -->
+            <div class="col-md-6 text-center text-md-start pt-5">
+              <h2 class="contact-text">Visit us<br> or drop us a line!</h2>
+              <div class="arrow-line">
+                <i class="fas fa-arrow-right"></i>
+              </div>
+            </div>
+      
+            <!-- Divider -->
+            <div class="col-md-1 d-none d-md-flex justify-content-center">
+              <div class="divider"></div>
+            </div>
+      
+            <!-- Right Section -->
+            <div class="col-md-5 contact-details text-center text-md-start pt-5">
+              <h5>Kothamangalam</h5>
+              <p>City tower, Nellikuzi P O Kothamangalam.</p>
+              <p>Phone: 987-654-3210</p>
+              <p>Email: info@qdrops.com</p>
+      
+              <h5>Nedumkandam</h5>
+              <p>Opposite Panchayath Office Road,<br> Thekkady, Munnar, Nedumkandam,<br> Kerala 685553</p>
+              <p>Phone: +91 7558860973</p>
+              <p>Email: info@qdrops.com</p>
+      
+              <!-- Social Media Links -->
+              <div class="social-section d-flex justify-content-between align-items-center">
+                <!-- Social Media Icons -->
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/qdrop.in/"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/qdrop.in/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href=""><i class="fab fa-youtube"></i></a>
+                </div>
+            
+                <!-- Terms and Conditions Link -->
+                <div class="terms-link">
+                    <a href="#" class="terms-text">Terms and Conditions</a>
+                </div>
+            </div>
+            
+            </div>
+          </div>
+        </div>
+      </section>
+    
+
+
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"></script>
+      <script src="https://unpkg.com/scrollreveal"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+
+
+      <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const navbar = document.querySelector(".navbar");
+    const toggler = document.querySelector(".navbar-toggler");
+
+    // Change navbar background on scroll
+    window.addEventListener("scroll", function () {
+        if (window.scrollY > 50) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+    });
+
+    // Change navbar background when menu is toggled
+    toggler.addEventListener("click", function () {
+        if (navbar.classList.contains("menu-open")) {
+            navbar.classList.remove("menu-open");
+        } else {
+            navbar.classList.add("menu-open");
+        }
+    });
+});
+
+        document.addEventListener("DOMContentLoaded", function () {
+    const navbarHeight = document.querySelector(".navbar").offsetHeight;
+
+    document.querySelectorAll('a.nav-link[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute("href");
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                const offsetTop = targetElement.offsetTop - navbarHeight;
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: "smooth"
+                });
+            }
+        });
+    });
+});
+
+
+
+ScrollReveal().reveal('.reveal-left', { 
+    origin: 'left', 
+    distance: '50px', 
+    duration: 500, 
+    delay: 200, 
+    mobile: true // Enable animations for mobile
+});
+
+ScrollReveal().reveal('.reveal-right', { 
+    origin: 'right', 
+    distance: '50px', 
+    duration: 500, 
+    delay: 200, 
+    mobile: true // Enable animations for mobile
+});
+
+ScrollReveal().reveal('.bottom', { 
+    origin: 'bottom', 
+    distance: '50px', 
+    duration: 500, 
+    delay: 200, 
+    mobile: true // Enable animations for mobile
+});
+const revealConfig = {
+    distance: window.innerWidth < 768 ? '20px' : '50px', // Smaller distance for mobile
+    duration: 400, // Slightly faster animations for mobile
+    delay: 200,
+    mobile: true,
+};
+
+ScrollReveal().reveal('.reveal-left', { ...revealConfig, origin: 'left' });
+ScrollReveal().reveal('.reveal-right', { ...revealConfig, origin: 'right' });
+ScrollReveal().reveal('.bottom', { ...revealConfig, origin: 'bottom' });
+
+        
+
+Fancybox.bind("[data-fancybox='gallery']", {
+        Thumbs: {
+            autoStart: true, // Automatically display thumbnail navigation
+        },
+        Toolbar: {
+            display: ["close"], // Show only the close button
+        },
+        infinite: true, // Allow looping through images
+        caption: (fancybox, carousel, slide) => {
+            return slide.$trigger.dataset.caption || "";
+        },
+    });
+
+
+    </script>
+   
+
+</body>
+
+</html>

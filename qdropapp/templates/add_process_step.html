@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Process</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="icon" href="{% static 'images/fav_icon.png' %}" type="image/x-icon">
+
+
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Add Water Treatment Process Step</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="step_number" class="form-label">Step Number</label>
+                <input type="number" id="step_number" name="step_number" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="heading" class="form-label">Step Heading</label>
+                <input type="text" id="heading" name="heading" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="points" class="form-label">Step Points (separate each point with a semicolon ";")</label>
+                <textarea id="points" name="points" class="form-control" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Step</button>
+        </form>
+    
+        <!-- Table of Added Steps -->
+        <div class="mt-5">
+            <h3>Added Steps</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Step</th>
+                        <th>Heading</th>
+                        <th>Points</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for step in steps %}
+                    <tr>
+                        <td>{{ step.step_number }}</td>
+                        <td>{{ step.heading }}</td>
+                        <td>
+                            <ul>
+                                {% for point in step.get_points_as_list %}
+                                <li>{{ point }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <td>
+                            <a href="{% url 'edit_process_step' step.id %}" class="btn btn-warning btn-sm">Edit</a>
+                            <form method="POST" action="{% url 'delete_process_step' step.id %}" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+</body>
+</html>
